@@ -1,0 +1,15 @@
+<html>
+<body>
+<form action="http://127.0.0.1:8081/process_get" method="GET">
+Welcome, admin!!
+<br>
+<% for(var i =0 ; i< rows.length;i++) { %>
+<br><br>
+User: <%=rows[i].username%> <br>
+Ans 1: <%=rows[i].q1%> :  <font color = "red"> <%=rows[i].q1_result%></font><br>
+Ans 2: <%=rows[i].q2%> :  <font color = "red"> <%=rows[i].q2_result%> </font></br>
+Ans 3: <%=rows[i].q3%> :  <font color = "red"> <%=rows[i].q3_result%></font></br>
+Feedback : <%=rows[i].feedback %> <br>
+<%}%>
+</body>
+</html>

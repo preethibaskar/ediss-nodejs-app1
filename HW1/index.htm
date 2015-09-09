@@ -1,0 +1,40 @@
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+  function logIn() {
+    var username = $('input[name="user_name"]').val();
+    var password = $('input[name="password"]').val();
+   if(username == "" || password == ""){
+   	$('#alert').html("Please fill both the fields");
+   }
+   else{
+   	$.get('/process_get', { username:username, password:password}, function(response) {
+                if(response['rows']== ""){
+                	$('#alert').html("No such user. Please verify your username and password");
+                }
+                else{
+                	if(response['rows'][0].type == "user"){
+                		window.location.href = "/survey.htm?user="+response['rows'][0].username;
+                	}
+                	else{
+                		window.location.href = "/answers.htm";	
+                	}
+                	
+                }
+            
+            });
+   }
+    
+}
+</script>
+<body>
+<form action="http://127.0.0.1:8081/process_get" method="GET">
+Username :<input type="text" name="user_name">  <br>
+
+Password: <input type="password" name="password"><br>
+<div id = "alert" style="color:red"></div><br>
+<input type="button" value="Log In" id = "log_in" onclick="logIn()">
+
+</form>
+</body>
+</html>

@@ -1,0 +1,50 @@
+
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+  function verify() {
+    var q1 = $('input[name="q1"]:checked').val();
+    var q2 = $('input[name="q2"]:checked').val();
+    var q3 = $('input[name="q3"]:checked').val();
+    var user = $('input[name="user"]').val();
+    $.get('/survey_form', { q1:q1, q2:q2, q3:q3, user:user}, function(response) {
+                $('#q1_result').html(response['ans1']);
+                $('#q2_result').html(response['ans2']);
+                $('#q3_result').html(response['ans3']);
+                $('#feedback').html(response['feedback']); // show the list
+            });
+}
+function signIn(){
+  window.location.href = "/index.htm";
+}
+</script>
+<body>
+<form action="/survey_form" method="GET">
+Welcome <%= user%><br><br>
+ <input type="hidden" name="user" value=<%=user%>>
+ <div style="color:red" id="feedback"></div> <br><br>
+<form>
+  What is 2 + 2?<br>
+  <input type="radio" name="q1" id = "q1" value="4" checked> 4
+  <input type="radio" name="q1" id = "q1" value="0"> 0
+  <input type="radio" name="q1" id = "q1" value="2"> 2 <br>
+  <div style="color:red" id="q1_result"></div><br><br>
+
+ What is 3 * 4?<br>
+  <input type="radio" name="q2" id = "q2" value="7" checked> 7
+  <input type="radio" name="q2" id = "q2" value="14"> 14
+  <input type="radio" name="q2" id = "q2" value="12"> 12<br>
+  <div style="color:red" id="q2_result"></div><br><br>
+
+ What is 2/2?<br>
+  <input type="radio" name="q3" id = "q3" value="2" checked> 2
+  <input type="radio" name="q3" id = "q3" value="1"> 1
+  <input type="radio" name="q3" id = "q3" value="0"> 0
+<br>
+<div style="color:red" id="q3_result"></div><br><br>
+<input type="button" id ="submit_button" value="Submit" onclick="verify()"><br><br>
+<input type="button" id ="re_signin" value="Sign in as different user" onclick="signIn()">
+
+</form>
+</body>
+</html>
